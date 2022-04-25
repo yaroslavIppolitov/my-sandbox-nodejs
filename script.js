@@ -31,7 +31,7 @@ if (a === undefined || b === undefined || c === undefined) {
     `Наример, для решения уравнения 4x^2-16x+10=0 введите команду ${nodePath} ${scriptPath} 4 -16 10`
   );
   console.log(
-    `Для детального отображения решения используйте параметра MODE=details`
+    `Для детального отображения решения используйте параметр MODE=details`
   );
   process.exit(1);
 }
