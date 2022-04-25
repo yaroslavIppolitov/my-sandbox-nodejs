@@ -36,6 +36,15 @@ if (a === undefined || b === undefined || c === undefined) {
   process.exit(1);
 }
 
+if (a == 0) {
+  const x = -c / b;
+  if (mode == "details") {
+    console.log(`x = ${-c} /${b} = ${x}`);
+  }
+  console.log(`Ответ: x = ${x}.`);
+  process.exit(0);
+}
+
 const D = Math.pow(b, 2) - 4 * a * c;
 if (mode == "details") {
   console.log(`D = ${b}^2 - 4*${a}*${c} = ${D}`);
