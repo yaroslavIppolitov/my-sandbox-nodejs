@@ -37,6 +37,10 @@ if (a === undefined || b === undefined || c === undefined) {
 }
 
 if (a == 0) {
+  if (b == 0) {
+    console.log(`Заданы некорректные параметры.`);
+    process.exit(3);
+  }
   const x = -c / b;
   if (mode == "details") {
     console.log(`x = ${-c} /${b} = ${x}`);
