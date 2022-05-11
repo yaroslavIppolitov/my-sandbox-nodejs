@@ -88,6 +88,7 @@ function translit(word) {
 
 fs.readFile(inputFilePath, "utf8", (err, data) => {
   if (err) throw err;
+  fs.unlinkSync(outputFilePath);
   const translitedNames = translit(data);
   fs.writeFileSync(outputFilePath, translitedNames, { flag: "a" });
 });
