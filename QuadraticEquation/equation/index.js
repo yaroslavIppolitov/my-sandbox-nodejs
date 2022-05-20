@@ -8,6 +8,7 @@ let scriptPath = "";
 const path = require("path");
 const fs = require("fs");
 const resultFilePath = path.join(path.dirname(process.argv[1]), "log.txt");
+const art = require("../app/node_modules/ascii-art");
 
 const readline = require("readline");
 
@@ -40,10 +41,10 @@ function printGreeting() {
   //   "Для решения квадртаного уравнения aх^2+bx+c = 0 задайте коэффициенты a, b, c, как аргументы скрипта."
   // );
   console.log(
-    `Для решения квадртаного уравнения  введите команду ${nodePath} ${scriptPath}`
+    `To solve a quadratic equation, enter the command ${nodePath} ${scriptPath}`
   );
   console.log(
-    `Для детального отображения решения используйте параметр MODE=details`
+    `To display the solution in detail, use the parameter MODE=details`
   );
 }
 
@@ -53,8 +54,9 @@ function calculateEquation() {
   }
   if (a == 0) {
     if (b == 0) {
-      result = `Заданы некорректные параметры.`;
-      console.log(result);
+      result = `Incorrect parameters specified.`;
+      // console.log(result);
+      visualizeText(result);
       writeToLog(result);
       process.exit(3);
     }
@@ -62,8 +64,9 @@ function calculateEquation() {
     if (mode == "details") {
       console.log(`x = ${-c} /${b} = ${x}`);
     }
-    result = `Ответ: x = ${x}.`;
-    console.log(result);
+    result = `Answer: x = ${x}.`;
+    // console.log(result);
+    visualizeText(result);
     writeToLog(result);
 
     process.exit(0);
@@ -74,16 +77,18 @@ function calculateEquation() {
     console.log(`D = ${b}^2 - 4*${a}*${c} = ${D}`);
   }
   if (D < 0) {
-    result = "Корней нет.";
-    console.log(result);
+    result = "No roots.";
+    // console.log(result);
+    visualizeText(result);
     writeToLog(result);
   } else if (D === 0) {
     const x = -b / (2 * a);
     if (mode == "details") {
       console.log(`x = -${b}/(2 * ${a}) = ${x}`);
     }
-    result = `Ответ: x = ${x}.`;
-    console.log(result);
+    result = `Answer: x = ${x}.`;
+    // console.log(result);
+    visualizeText(result);
     writeToLog(result);
   } else if (D > 0) {
     const x1 = (-b + Math.sqrt(D)) / (2 * a);
@@ -92,8 +97,9 @@ function calculateEquation() {
       console.log(`x1 = -${b} + sqrt(${D})/(2 * ${a}) = ${x1}`);
       console.log(`x2 = -${b} - sqrt(${D})/(2 * ${a}) = ${x2}`);
     }
-    result = `Ответ: x1 = ${x1}, x2 = ${x2}.`;
-    console.log(result);
+    result = `Answer = ${x1}, x2 = ${x2}.`;
+    // console.log(result);
+    visualizeText(result);
     writeToLog(result);
   }
   process.exit(0);
@@ -132,11 +138,18 @@ function showUserDialog() {
   rl.question("Enter a:", fullfullA);
 }
 
-function main() {
+function visualizeText(text) {
+  art.font(text, "doom", (err, asciiText) => {
+    if (err) {
+      return;
+    }
+    console.log(asciiText);
+  });
+}
+
+module.exports = function main() {
   checkOS();
   fullfillPaths();
   printGreeting();
   showUserDialog();
-}
-
-main();
+};
